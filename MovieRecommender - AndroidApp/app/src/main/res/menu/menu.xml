@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="About Us"
+        android:id="@+id/menuAboutUs"
+        app:showAsAction="never"/>
+
+    <item
+        android:title="Help"
+        android:id="@+id/menuHelp"
+        app:showAsAction="never"/>
+
+    <item
+        android:title="Liked Movies"
+        android:icon="@drawable/ic_baseline_movie_24"
+        android:id="@+id/menuLikedMovies"
+        app:showAsAction="always"/>
+
+    <item
+        android:title="Log Out"
+        android:id="@+id/menuLogout"
+        app:showAsAction="never"/>
+
+</menu>

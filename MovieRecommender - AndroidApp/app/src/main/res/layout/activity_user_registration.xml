@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical"
+    tools:context=".UserRegistration">
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:hint="ENTER YOUR NAME"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:hint="ENTER YOUR EMAIL"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:hint="ENTER YOUR PASSWORD"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/etPasswordConfirm"
+        android:layout_width="match_parent"
+        android:hint="CONFIRM YOUR PASSWORD"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword" />
+    <TextView
+        android:text="SELECT GENRES YOU LIKE: "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ScrollView android:layout_height="250dp"
+        android:layout_width="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/cbAnimation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Animation" />
+            <CheckBox
+                android:id="@+id/cbComedy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Comedy" />
+            <CheckBox
+                android:id="@+id/cbFamily"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Family" />
+            <CheckBox
+                android:id="@+id/cbAdventure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Adventure" />
+            <CheckBox
+                android:id="@+id/cbFantasy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fantasy" />
+            <CheckBox
+                android:id="@+id/cbRomance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Romance" />
+            <CheckBox
+                android:id="@+id/cbDrama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Drama" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/cbAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Action" />
+            <CheckBox
+                android:id="@+id/cbCrime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Crime" />
+            <CheckBox
+                android:id="@+id/cbThriller"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thriller" />
+            <CheckBox
+                android:id="@+id/cbHorror"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Horror" />
+            <CheckBox
+                android:id="@+id/cbHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="History" />
+            <CheckBox
+                android:id="@+id/cbScienceFiction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Science Fiction" />
+            <CheckBox
+                android:id="@+id/cbMystery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mystery" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/cbWar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="War" />
+            <CheckBox
+                android:id="@+id/cbForeign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Foreign" />
+            <CheckBox
+                android:id="@+id/cbMusic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Music" />
+            <CheckBox
+                android:id="@+id/cbDocumentary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Documentary" />
+            <CheckBox
+                android:id="@+id/cbWestern"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Western" />
+            <CheckBox
+                android:id="@+id/cbTVMovie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TV Movie" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnReg"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register" />
+
+
+</LinearLayout>
