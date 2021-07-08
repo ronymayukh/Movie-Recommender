@@ -14,9 +14,6 @@ import warnings; warnings.simplefilter('ignore')
 uid_input = sys.argv[1]
 movie_input = sys.argv[2]
 
-#uid_input = '1'
-#movie_input = 'Avatar'
-
 connection = pymysql.connect(
     host='localhost',
     user='root',
@@ -25,30 +22,26 @@ connection = pymysql.connect(
 )
 
 sql = "SELECT userId, movieId, rating FROM ratings"
+
 with connection.cursor() as cursor:
     cursor.execute(sql)
-    result1 = cursor.fetchall()
+    result = cursor.fetchall()
+    
+ratings = pd.DataFrame(result, columns =['userId', 'movieId', 'rating'])
 
 sql = "SELECT id, movieId, genres, cast, keywords, director, title, vote_count, vote_average, year FROM movies WHERE id NOT IN (SELECT DISTINCT movieId from ratings where userId = "+uid_input+")"
-with connection.cursor() as cursor:
-    cursor.execute(sql)
-    result2 = cursor.fetchall()
-
-sql = "SELECT id, movieId, genres, cast, keywords, director, title, vote_count, vote_average, year FROM movies WHERE title = "+movie_input
 
 with connection.cursor() as cursor:
     cursor.execute(sql)
-    result3 = cursor.fetchone()
+    result = cursor.fetchall()
 
 connection.close()
-    
-ratings = pd.DataFrame(result1, columns =['userId', 'movieId', 'rating'])
-movies = pd.DataFrame(result2, columns =['id', 'movieId', 'genres', 'cast', 'keywords', 'director', 'title', 'vote_count', 'vote_average', 'year'])
-movies.loc[len(movies.index)] = result3
 
+movies = pd.DataFrame(result, columns =['id', 'movieId', 'genres', 'cast', 'keywords', 'director', 'title', 'vote_count', 'vote_average', 'year'])
 
 movies['cast'] = movies['cast'].apply(lambda x: [str.lower(i.replace(" ", "")) for i in x])
 movies['director'] = movies['director'].astype('str').apply(lambda x: str.lower(x.replace(" ", "")))
+
 id_map = movies[['movieId', 'id']]
 id_map = id_map.merge(movies[['title', 'id']], on='id').set_index('title')
 
@@ -86,11 +79,11 @@ movies['soup'] = movies['soup'].apply(lambda x: ' '.join(x))
 
 count = CountVectorizer(analyzer='word',ngram_range=(1, 2),min_df=0, stop_words='english')
 count_matrix = count.fit_transform(movies['soup'])
-
 cosine_sim = cosine_similarity(count_matrix, count_matrix)
-svd = SVD()
-reader = Reader()
 
+svd = SVD()
+
+reader = Reader()
 data = Dataset.load_from_df(ratings[['userId', 'movieId', 'rating']], reader)
 
 trainset = data.build_full_trainset()
@@ -98,19 +91,20 @@ svd.fit(trainset)
 
 def hybrid(userId, title):
     idx = indices[title]
-    tmdbId = id_map.loc[title]['id']
-    #print(idx)
-    movie_id = id_map.loc[title]['movieId']
+    #tmdbId = id_map.loc[title]['id']
+    
+    #movie_id = id_map.loc[title]['movieId']
     
     sim_scores = list(enumerate(cosine_sim[int(idx)]))
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
     sim_scores = sim_scores[0:100]
     movie_indices = [i[0] for i in sim_scores]
     
-    recommendedMovies = movies.iloc[movie_indices][['id', 'title', 'vote_count', 'vote_average', 'year']]
+    recommendedMovies = movies.iloc[movie_indices][['title', 'vote_count', 'vote_average', 'year', 'id']]
     recommendedMovies['est'] = recommendedMovies['id'].apply(lambda x: svd.predict(userId, indices_map.loc[x]['movieId']).est)
-    recommendedMovies = recommendedMovies.sort_values('est', ascending=False).head(20)
+    recommendedMovies = recommendedMovies.sort_values('est', ascending=False)
     return recommendedMovies
+
 
 result = hybrid(uid_input, movie_input)
 col_one_list = result['id'].tolist()
